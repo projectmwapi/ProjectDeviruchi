@@ -25,8 +25,7 @@ class ElementController extends Controller
      */
     public function index(Request $request)
     {
-        $pagination = ParameterHelper::validatePagination($request->all());
-        $this->element = ResourceHelper::showAllResource('Maintenance', 'Element', (isset($pagination['page_size']) ? $pagination['page_size'] : 0), (isset($pagination['page']) ? $pagination['page'] : 0));
+        $this->element = ResourceHelper::showAllResource('Maintenance', 'Element', ($request->has('page_size') ? $request->get('page_size') : 0), ($request->get('page') ? $request->get('page') : 0));
         return Response::json($this->element, $this->element['code']);
     }
 
