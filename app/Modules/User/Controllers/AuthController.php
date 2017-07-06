@@ -107,13 +107,13 @@ class AuthController extends Controller
 	public function changePassword(Request $request)
 	{
 		$auth_config 	= GlobalHelper::getConfigurationByConfigTypeGroup(1);
+		// Get user model resource by using access_token in user_access 
+		$user = UserParser::getUserFromUserAccessByToken($request->header('X-Auth-Token'));
 		// Check if API was called via forgot or first time login 
 		if ($request->get('is_forgot') == 1) {
 			// Get user model resource by using user_token as resource field
 			$user = UserParser::getUserByToken($request->header('X-Auth-Token'));
 		}
-		// Get user model resource by using access_token in user_access 
-		$user = UserParser::getUserFromUserAccessByToken($request->header('X-Auth-Token'));
 		if ($user['code'] == '200') {
 			// Check if first time loggin in
 			if ($user['data']['first_login'] == 1) {
