@@ -31,8 +31,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $pagination = ParameterHelper::validatePagination($request->all());
-        $this->user = ResourceHelper::showAllResource('User', 'User', (isset($pagination['page_size']) ? $pagination['page_size'] : 0), (isset($pagination['page']) ? $pagination['page'] : 0), ['employee']);
+        $this->user = ResourceHelper::showAllResource('User', 'User', ($request->has('page_size') ? $request->get('page_size') : 0), ($request->get('page') ? $request->get('page') : 0), ['employee']);
         return Response::json($this->user, $this->user['code']);
     }
 
