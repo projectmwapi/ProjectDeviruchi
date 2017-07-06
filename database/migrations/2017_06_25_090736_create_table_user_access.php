@@ -28,6 +28,6 @@ class CreateTableUserAccess extends Migration
      */
     public function down()
     {
-        Schema::drop('user');
+        Schema::drop('user_access');
     }
 }
